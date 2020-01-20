@@ -1,6 +1,7 @@
 import glob
 import os
 import sys
+import sysconfig
 
 def initialize(finder):
     """upon initialization of the finder, this routine is called to set up some
@@ -98,9 +99,9 @@ def load__ctypes(finder, module):
     """In Windows, the _ctypes module in Python >= 3.8 requires an additional dll
        libffi-7.dll to be present in the build directory."""
     if sys.platform == "win32" and sys.version_info >= (3, 8):
-        dll_name = "libffi-7.dll"
-        dll_path = os.path.join(sys.base_prefix, "DLLs", dll_name)
-        finder.IncludeFiles(dll_path, os.path.join("lib", dll_name))
+        libdir = "lib" if sysconfig.get_platform() == "mingw" else "DLLs"
+        for dll_path in glob.glob(os.path.join(sys.base_prefix, libdir, "libffi-*dll")):
+            finder.IncludeFiles(dll_path, os.path.join("lib", dll_name))
 
 
 def load_cx_Oracle(finder, module):
