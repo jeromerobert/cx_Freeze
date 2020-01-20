@@ -157,9 +157,9 @@ class Freezer(object):
                 if relativeSource and os.path.isabs(source) and \
                         os.path.commonpath((source, sourceDir)) == sourceDir:
                     relative = os.path.relpath(source, sourceDir)
-                    target = os.path.join(targetDir, relative)
+                    target = os.path.join(self.targetDir, relative)
                 else:
-                    target = os.path.join(targetDir, os.path.basename(source))
+                    target = os.path.join(self.targetDir, os.path.basename(source))
                 self._CopyFile(source, target, copyDependentFiles,
                                relativeSource=relativeSource)
 
