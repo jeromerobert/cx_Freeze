@@ -146,7 +146,7 @@ for fileName in os.listdir(os.path.join("cx_Freeze", "initscripts")):
     name, ext = os.path.splitext(fileName)
     if ext != ".py":
         continue
-    packageData.append("initscripts/%s" % fileName)
+    packageData.append("initscripts/%s*" % fileName)
 for fileName in os.listdir(os.path.join("cx_Freeze", "samples")):
     dirName = os.path.join("cx_Freeze", "samples", fileName)
     if not os.path.isdir(dirName):
